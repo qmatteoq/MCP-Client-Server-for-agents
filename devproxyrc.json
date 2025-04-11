@@ -1,0 +1,20 @@
+{
+	"$schema": "https://raw.githubusercontent.com/dotnet/dev-proxy/main/schemas/v0.26.0/rc.schema.json",
+	"plugins": [
+		{
+			"name": "DevToolsPlugin",
+			"enabled": true,
+			"pluginPath": "~appFolder/plugins/dev-proxy-plugins.dll",
+			"configSection": "devTools"
+		}
+	],
+	"urlsToWatch": [
+		"https://api.open-meteo.com/*"
+	],
+	"logLevel": "information",
+	"newVersionNotification": "stable",
+	"showSkipMessages": true,
+	"devTools": {
+		"preferredBrowser": "Chrome"
+	}
+}
