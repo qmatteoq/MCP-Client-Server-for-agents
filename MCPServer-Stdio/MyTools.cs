@@ -1,8 +1,10 @@
 using System.ComponentModel;
 using ModelContextProtocol.Server;
 
+namespace MCPTools;
+
 [McpServerToolType]
-public static class EchoTool
+public class EchoTool
 {
     [McpServerTool, Description("Echoes the message back to the client.")]
     public static string Echo(string message) => $"Hello from C#: {message}";
@@ -12,7 +14,7 @@ public static class EchoTool
 }
 
 [McpServerToolType]
-public static class WeatherTool
+public class WeatherTool
 {
     [McpServerTool, Description("Get the current weather data for a given latitude and longitude.")]
     public static async Task<WeatherData> GetWeatherAsync(IWeatherService weatherService, [Description("The latitude of the location")] double latitude, [Description("The longitude of the location")] double longitude)
@@ -22,7 +24,7 @@ public static class WeatherTool
 }
 
 [McpServerToolType]
-public static class MathTool
+public class MathTool
 {
     [McpServerTool, Description("Adds two numbers together.")]
     public static int Add(int a, int b) => a + b;

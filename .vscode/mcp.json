@@ -7,8 +7,12 @@
             "args": [
                 "run",
                 "--project",
-                "d:\\src\\samples\\MCPServer\\MCPServer.csproj"
+                "d:\\src\\samples\\MCPServer\\MCPServer-Stdio\\MCPServer-Stdio.csproj"
             ]
-        }
+        },
+        "my-mcp-server-870f90c6": {
+                "type": "sse",
+                "url": "http://localhost:5248/sse"
+            }
     }
 }

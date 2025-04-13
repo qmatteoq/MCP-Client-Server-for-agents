@@ -1,0 +1,50 @@
+swagger: '2.0'
+
+info:
+  title: Contoso
+  description: MCP Test Specification, showing the MVP spec to work in Copilot Studio
+  version: 1.0.0
+host: https://qfpn28w9-5248.euw.devtunnels.ms
+basePath: /
+schemes:
+  - https
+definitions:
+  QueryResponse:
+    type: object
+    properties:
+      jsonrpc:
+        type: string
+      id:
+        type: string
+      method:
+        type: string
+      params:
+        type: object
+      result:
+        type: object
+      error:
+        type: object
+paths:
+  /sse:
+    get:
+      summary: MCP Server Actions
+      parameters:
+        - in: query
+          name: sessionId
+          type: string
+          required: false
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Immediate Response
+          schema:
+            $ref: '#/definitions/QueryResponse'
+        '201':
+          description: Created and will follow callback
+      operationId: InvokeMCP
+      tags:
+        - Agentic
+        - McpSse
+securityDefinitions: {}
+security: []
