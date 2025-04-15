@@ -24,22 +24,24 @@ var kernel = builder.Build();
 var projectPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "MCPServer-Stdio", "MCPServer-Stdio.csproj"));
 
 //use stdio
-await using var mcpClient = await McpClientFactory.CreateAsync(
-
-    new StdioClientTransport(new () {
-        Name = "MyFirstMCP",
-        Command = "dotnet",
-        Arguments = ["run", "--project", projectPath],
-    })
-);
-
-// use HTTP
 // await using var mcpClient = await McpClientFactory.CreateAsync(
-//     new SseClientTransport(new () {
+
+//     new StdioClientTransport(new () {
 //         Name = "MyFirstMCP",
-//         Endpoint = new Uri("http://localhost:5248/sse"),
+//         Command = "dotnet",
+//         Arguments = ["run", "--project", projectPath],
 //     })
 // );
+
+// use HTTP
+var serviceUri = configuration["services:mcp-server:http:0"];
+
+await using var mcpClient = await McpClientFactory.CreateAsync(
+    new SseClientTransport(new () {
+        Name = "MyFirstMCP",
+        Endpoint = new Uri($"{serviceUri}/sse"),
+    })
+);
 
 var tools = await mcpClient.ListToolsAsync();
 foreach (var tool in tools)

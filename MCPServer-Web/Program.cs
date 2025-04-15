@@ -6,7 +6,6 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File(Path.Combine(Directory.GetCurrentDirectory(), "weather.log"), rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();

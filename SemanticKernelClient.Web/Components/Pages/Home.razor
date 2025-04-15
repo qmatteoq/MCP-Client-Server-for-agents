@@ -1,0 +1,61 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.Connectors.OpenAI
+@using ModelContextProtocol.Client
+@using ModelContextProtocol.Protocol.Transport
+@inject IConfiguration configuration
+@inject Kernel kernel
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<div>
+    <label for="userPrompt">Enter your prompt:</label>
+    <input id="userPrompt" @bind="UserPrompt" placeholder="Type something..." />
+    <button class="btn btn-primary" @onclick="OnSubmit">Submit</button>
+</div>
+
+<p>Response: @Response</p>
+
+@code {
+    private string UserPrompt { get; set; } = string.Empty;
+
+    private string Response { get; set; } = string.Empty;
+
+    override protected async Task OnInitializedAsync()
+    {
+        var serviceUri = configuration["services:mcp-server:http:0"];
+
+        await using var mcpClient = await McpClientFactory.CreateAsync(
+            new SseClientTransport(new () {
+                Name = "MyFirstMCP",
+                Endpoint = new Uri($"{serviceUri}/sse"),
+            })
+        );
+
+        var tools = await mcpClient.ListToolsAsync();
+        foreach (var tool in tools)
+        {
+            Console.WriteLine($"Tool: {tool.Name} - {tool.Description}");
+        }
+
+        kernel.Plugins.AddFromFunctions("MyFirstMCP", tools.Select(x => x.AsKernelFunction()));
+    }
+
+    private async Task OnSubmit()
+    {
+        OpenAIPromptExecutionSettings executionSettings = new() 
+        {
+            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: new() { RetainArgumentTypes = true })
+        };
+
+        var response = kernel.InvokePromptStreamingAsync(UserPrompt, new(executionSettings));
+
+        await foreach (var update in response)
+        {
+            Response += update;
+        }
+    }
+}
