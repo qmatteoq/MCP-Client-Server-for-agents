@@ -13,7 +13,7 @@ builder.Logging.AddSerilog();
 
 builder.Services
     .AddSingleton<IWeatherService, WeatherService>()
-    .AddMcpServer()
+    .AddMcpServer().WithHttpTransport()
     .WithTools<EchoTool>()
     .WithTools<WeatherTool>();
 

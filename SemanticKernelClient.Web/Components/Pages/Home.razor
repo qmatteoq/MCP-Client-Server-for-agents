@@ -24,29 +24,31 @@
 
     private string Response { get; set; } = string.Empty;
 
-    override protected async Task OnInitializedAsync()
-    {
-        var serviceUri = configuration["services:mcp-server:http:0"];
-
-        await using var mcpClient = await McpClientFactory.CreateAsync(
-            new SseClientTransport(new () {
-                Name = "MyFirstMCP",
-                Endpoint = new Uri($"{serviceUri}/sse"),
-            })
-        );
-
-        var tools = await mcpClient.ListToolsAsync();
-        foreach (var tool in tools)
-        {
-            Console.WriteLine($"Tool: {tool.Name} - {tool.Description}");
-        }
-
-        kernel.Plugins.AddFromFunctions("MyFirstMCP", tools.Select(x => x.AsKernelFunction()));
-    }
-
     private async Task OnSubmit()
     {
-        OpenAIPromptExecutionSettings executionSettings = new() 
+        if (kernel.Plugins.Count == 0)
+        {
+            var serviceUri = configuration["services:mcp-server:http:0"];
+
+            await using var mcpClient = await McpClientFactory.CreateAsync(
+                new SseClientTransport(new()
+                {
+                    Name = "MyFirstMCP",
+                    Endpoint = new Uri($"{serviceUri}/sse"),
+                })
+            );
+
+            var tools = await mcpClient.ListToolsAsync();
+            foreach (var tool in tools)
+            {
+                Console.WriteLine($"Tool: {tool.Name} - {tool.Description}");
+            }
+
+            kernel.Plugins.AddFromFunctions("MyFirstMCP", tools.Select(x => x.AsKernelFunction()));
+        }
+
+
+        OpenAIPromptExecutionSettings executionSettings = new()
         {
             FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: new() { RetainArgumentTypes = true })
         };

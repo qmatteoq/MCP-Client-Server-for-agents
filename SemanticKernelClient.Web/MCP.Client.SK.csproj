@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.4" />
     <PackageReference Include="Aspire.Azure.AI.OpenAI" Version="9.0.0-preview.5.24551.3" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.46.0" />
-    <PackageReference Include="ModelContextProtocol" Version="0.1.0-preview.7" />
+    <PackageReference Include="ModelContextProtocol" Version="0.1.0-preview.9" />
   </ItemGroup>
 
   <ItemGroup>
