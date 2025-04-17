@@ -14,7 +14,7 @@
 <div>
     <label for="userPrompt">Enter your prompt:</label>
     <input id="userPrompt" @bind="UserPrompt" placeholder="Type something..." />
-    <button class="btn btn-primary" @onclick="OnSubmit">Submit</button>
+    <button class="btn btn-primary" @onclick="() => OnSubmit()">Submit</button>
 </div>
 
 <p>Response: @Response</p>
@@ -26,38 +26,32 @@
 
     private async Task OnSubmit()
     {
-        if (kernel.Plugins.Count == 0)
+        @* var serviceUri = configuration["services:mcp-server:http:0"]; *@
+        var serviceUri = "https://qfpn28w9-5248.euw.devtunnels.ms";
+
+        await using var mcpClient = await McpClientFactory.CreateAsync(
+        new SseClientTransport(new()
         {
-            var serviceUri = configuration["services:mcp-server:http:0"];
+            Name = "MyFirstMCP",
+            Endpoint = new Uri($"{serviceUri}/sse"),
+        })
+        );
 
-            await using var mcpClient = await McpClientFactory.CreateAsync(
-                new SseClientTransport(new()
-                {
-                    Name = "MyFirstMCP",
-                    Endpoint = new Uri($"{serviceUri}/sse"),
-                })
-            );
-
-            var tools = await mcpClient.ListToolsAsync();
-            foreach (var tool in tools)
-            {
-                Console.WriteLine($"Tool: {tool.Name} - {tool.Description}");
-            }
-
-            kernel.Plugins.AddFromFunctions("MyFirstMCP", tools.Select(x => x.AsKernelFunction()));
+        var tools = await mcpClient.ListToolsAsync();
+        foreach (var tool in tools)
+        {
+            Console.WriteLine($"Tool: {tool.Name} - {tool.Description}");
         }
 
+        kernel.Plugins.AddFromFunctions("MyFirstMCP", tools.Select(x => x.AsKernelFunction()));
 
         OpenAIPromptExecutionSettings executionSettings = new()
         {
             FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: new() { RetainArgumentTypes = true })
         };
 
-        var response = kernel.InvokePromptStreamingAsync(UserPrompt, new(executionSettings));
+        var response = await kernel.InvokePromptAsync(UserPrompt, new(executionSettings));
 
-        await foreach (var update in response)
-        {
-            Response += update;
-        }
+        Response = response.GetValue<string>();
     }
 }

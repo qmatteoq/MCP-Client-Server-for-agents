@@ -20,7 +20,7 @@ builder.Services.AddRazorComponents()
     
 builder.AddAzureOpenAIClient("openAiConnectionName");
 
-builder.Services.AddSingleton(builder => {
+builder.Services.AddTransient(builder => {
     var kernelBuilder = Kernel.CreateBuilder();
     kernelBuilder.AddAzureOpenAIChatCompletion("gpt-4o-mini", builder.GetService<AzureOpenAIClient>());
     return kernelBuilder.Build();

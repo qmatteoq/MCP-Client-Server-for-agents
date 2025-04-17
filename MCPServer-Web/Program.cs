@@ -10,10 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog();
+builder.Services.AddLogging(c => c.AddDebug().SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace));
 
 builder.Services
     .AddSingleton<IWeatherService, WeatherService>()
-    .AddMcpServer().WithHttpTransport()
+    .AddMcpServer()
     .WithTools<EchoTool>()
     .WithTools<WeatherTool>();
 
