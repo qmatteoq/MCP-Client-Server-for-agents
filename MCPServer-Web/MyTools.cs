@@ -16,23 +16,6 @@ public class EchoTool
 }
 
 [McpServerToolType]
-public class WeatherTool
-{
-    private readonly IWeatherService _weatherService;
-    public WeatherTool(IWeatherService weatherService)
-    {
-        _weatherService = weatherService;
-    }
-
-
-    [McpServerTool, Description("Get the current weather data for a given latitude and longitude.")]
-    public async Task<WeatherData> GetWeatherAsync([Description("The latitude of the location")] double latitude, [Description("The longitude of the location")] double longitude)
-    {
-        return await _weatherService.GetWeatherAsync(latitude, longitude);
-    }
-}
-
-[McpServerToolType]
 public class EmployeeVacationTool
 {
     private readonly IEmployeeVacationService _employeeVacationService;

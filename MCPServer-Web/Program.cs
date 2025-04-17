@@ -16,7 +16,6 @@ builder.Configuration.AddEnvironmentVariables();
 var connectionString = builder.Configuration.GetValue<string>("ConnectionStrings:tableServiceConnectionName");
 
 builder.Services
-    .AddSingleton<IWeatherService, WeatherService>()
     .AddSingleton<IEmployeeVacationService>(sp =>
     {
         var connectionString = builder.Configuration.GetValue<string>("ConnectionStrings:tableServiceConnectionName");
@@ -24,7 +23,6 @@ builder.Services
         return new EmployeeVacationService(connectionString, tableName);
     })
     .AddMcpServer()
-    .WithTools<WeatherTool>()
     .WithTools<EmployeeVacationTool>();
 
 var app = builder.Build();
