@@ -26,15 +26,14 @@
 
     private async Task OnSubmit()
     {
-        @* var serviceUri = configuration["services:mcp-server:http:0"]; *@
-        var serviceUri = "https://qfpn28w9-5248.euw.devtunnels.ms";
+        var serviceUri = configuration["services:mcp-server:http:0"];
 
         await using var mcpClient = await McpClientFactory.CreateAsync(
-        new SseClientTransport(new()
-        {
-            Name = "MyFirstMCP",
-            Endpoint = new Uri($"{serviceUri}/sse"),
-        })
+            new SseClientTransport(new()
+            {
+                Name = "MyFirstMCP",
+                Endpoint = new Uri($"{serviceUri}/sse"),
+            })
         );
 
         var tools = await mcpClient.ListToolsAsync();
@@ -48,7 +47,7 @@
         OpenAIPromptExecutionSettings executionSettings = new()
         {
             FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: new() { RetainArgumentTypes = true })
-        };
+        }; 
 
         var response = await kernel.InvokePromptAsync(UserPrompt, new(executionSettings));
 

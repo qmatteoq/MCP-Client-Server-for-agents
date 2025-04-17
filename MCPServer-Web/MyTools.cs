@@ -1,4 +1,6 @@
 using System.ComponentModel;
+using MCPServer_Web.Entities;
+using MCPServer_Web.Services;
 using ModelContextProtocol.Server;
 using Serilog;
 
@@ -31,17 +33,29 @@ public class WeatherTool
 }
 
 [McpServerToolType]
-public class MathTool
+public class EmployeeVacationTool
 {
-    [McpServerTool, Description("Adds two numbers together.")]
-    public static int Add(int a, int b) => a + b;
+    private readonly IEmployeeVacationService _employeeVacationService;
+    public EmployeeVacationTool(IEmployeeVacationService employeeVacationService)
+    {
+        _employeeVacationService = employeeVacationService;
+    }
 
-    [McpServerTool, Description("Subtracts the second number from the first.")]
-    public static int Subtract(int a, int b) => a - b;
+    [McpServerTool, Description("Get the vacation days left for a given employee.")]
+    public async Task<int?> GetVacationDaysLeftAsync([Description("The name of the employee")] string employeeName)
+    {
+        return await _employeeVacationService.GetVacationDaysLeftAsync(employeeName);
+    }
 
-    [McpServerTool, Description("Multiplies two numbers together.")]
-    public static int Multiply(int a, int b) => a * b;
+    [McpServerTool, Description("Charge vacation days for a given employee.")]
+    public async Task<bool> ChargeVacationDaysAsync([Description("The name of the employee")] string employeeName, [Description("The number of days to charge")] int daysToCharge)
+    {
+        return await _employeeVacationService.ChargeVacationDaysAsync(employeeName, daysToCharge);
+    }
 
-    [McpServerTool, Description("Divides the first number by the second.")]
-    public static double Divide(int a, int b) => (double)a / b;
+    [McpServerTool, Description("Get the list of employees with their number of vacation days left")]
+    public async Task<List<Employee>> GetAllEmployeesAsync()
+    {
+        return await _employeeVacationService.GetAllEmployeesAsync();
+    }
 }

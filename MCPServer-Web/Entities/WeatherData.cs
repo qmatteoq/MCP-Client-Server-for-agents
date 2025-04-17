@@ -1,3 +1,5 @@
+namespace MCPServer_Web.Entities;
+
 public class WeatherData
 {
     public float latitude { get; set; }

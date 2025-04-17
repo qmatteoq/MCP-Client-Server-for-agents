@@ -1,4 +1,5 @@
 using System.Text.Json;
+using MCPServer_Web.Entities;
 
 public class WeatherService : IWeatherService
 {
