@@ -9,10 +9,13 @@ namespace MCPServer_Web.Services
     {
         private readonly TableClient _tableClient;
 
-        public EmployeeVacationService(string storageConnectionString, string tableName)
+        private readonly ILogger<EmployeeVacationService> _logger;
+
+        public EmployeeVacationService(string storageConnectionString, string tableName, ILogger<EmployeeVacationService> logger)
         {
             _tableClient = new TableClient(storageConnectionString, tableName);
             _tableClient.CreateIfNotExists();
+             _logger = logger;
         }
 
         public async Task<int?> GetVacationDaysLeftAsync(string employeeName)
@@ -20,6 +23,7 @@ namespace MCPServer_Web.Services
             try
             {
                 var entity = await _tableClient.GetEntityAsync<EmployeeVacationEntity>("Employee", employeeName);
+                _logger.LogInformation($"Fetched vacation days left for {employeeName}: {entity.Value.VacationDaysLeft}");
                 return entity.Value.VacationDaysLeft;
             }
             catch (RequestFailedException ex) when (ex.Status == 404)
@@ -38,6 +42,7 @@ namespace MCPServer_Web.Services
                     return false;
                 entity.VacationDaysLeft -= daysToCharge;
                 await _tableClient.UpdateEntityAsync(entity, entity.ETag);
+                _logger.LogInformation($"Charged {daysToCharge} vacation days to {employeeName}. Remaining days: {entity.VacationDaysLeft}");
                 return true;
             }
             catch (RequestFailedException ex) when (ex.Status == 404)
@@ -50,8 +55,10 @@ namespace MCPServer_Web.Services
         {
             await foreach (var _ in _tableClient.QueryAsync<EmployeeVacationEntity>(maxPerPage: 1))
             {
+                _logger.LogInformation("Table is not empty.");
                 return false;
             }
+            _logger.LogInformation("Table is empty.");
             return true;
         }
 
@@ -78,6 +85,7 @@ namespace MCPServer_Web.Services
 
         public async Task<List<Employee>> GetAllEmployeesAsync()
         {
+            _logger.LogInformation("Fetching all employees from the table storage.");
             var result = new List<Employee>();
             await foreach (var entity in _tableClient.QueryAsync<EmployeeVacationEntity>())
             {
@@ -87,6 +95,8 @@ namespace MCPServer_Web.Services
                     VacationDaysLeft = entity.VacationDaysLeft
                 });
             }
+
+            _logger.LogInformation($"Fetched {result.Count} employees from the table storage.");
             return result;
         }
     }

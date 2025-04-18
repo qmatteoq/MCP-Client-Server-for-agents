@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCP.ServiceDefaults", "Serv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCP.Client.SK", "SemanticKernelClient.Web\MCP.Client.SK.csproj", "{437B1D4B-5DD8-4F6C-A420-F383826AA310}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SSE", "SSE", "{2D311568-E487-10FD-74D6-A1276166FC74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stdio", "Stdio", "{E7B4374F-92E3-4BE7-CE56-07C86AD7F278}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +76,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1477E147-7AF4-4F0D-838B-4F1E2FAE4677} = {2D311568-E487-10FD-74D6-A1276166FC74}
+		{0B635C9C-A0CA-4D0D-84F0-B239AB95CCDD} = {2D311568-E487-10FD-74D6-A1276166FC74}
+		{105DE5EB-8B6F-4CDD-8401-132D0D0E61A5} = {2D311568-E487-10FD-74D6-A1276166FC74}
+		{437B1D4B-5DD8-4F6C-A420-F383826AA310} = {2D311568-E487-10FD-74D6-A1276166FC74}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A47AEDD-EAA9-4901-8EBE-98E80336EDD5}
