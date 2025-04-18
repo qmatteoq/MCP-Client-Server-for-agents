@@ -1,0 +1,67 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.Agents
+@using Microsoft.SemanticKernel.Connectors.OpenAI
+@using ModelContextProtocol.Client
+@using ModelContextProtocol.Protocol.Transport
+@inject IConfiguration configuration
+@inject Kernel kernel
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<div>
+    <label for="userPrompt">Enter your prompt:</label>
+    <input id="userPrompt" @bind="UserPrompt" placeholder="Type something..." />
+    <button class="btn btn-primary" @onclick="() => OnSubmit()">Submit</button>
+</div>
+
+<p>Response: @Response</p>
+
+@code {
+    private string UserPrompt { get; set; } = string.Empty;
+
+    private string Response { get; set; } = string.Empty;
+
+    private async Task OnSubmit()
+    {
+        var serviceUri = configuration["services:mcp-server:http:0"];
+
+        await using var mcpClient = await McpClientFactory.CreateAsync(
+        new SseClientTransport(new()
+        {
+            Name = "MyFirstMCP",
+            Endpoint = new Uri($"{serviceUri}/sse"),
+        })
+        );
+
+        var tools = await mcpClient.ListToolsAsync();
+        foreach (var tool in tools)
+        {
+            Console.WriteLine($"Tool: {tool.Name} - {tool.Description}");
+        }
+
+        kernel.Plugins.AddFromFunctions("MyFirstMCP", tools.Select(x => x.AsKernelFunction()));
+
+        OpenAIPromptExecutionSettings executionSettings = new()
+        {
+            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: new() { RetainArgumentTypes = true })
+        };
+
+        ChatCompletionAgent agent = new ChatCompletionAgent()
+        {
+            Name = "LeaveRequestAgent",
+            Instructions = @"You are an agent that can help employees with their tasks about leave requests. You can answer to
+questions like:
+- How many days of leave do I have left?
+- Charge 3 days to my leave balance.",
+            Kernel = kernel,
+            Arguments = new(executionSettings)
+        };
+
+        var response = await agent.InvokeAsync(UserPrompt).FirstAsync();
+        Response = response.Message.Content;
+    }
+}

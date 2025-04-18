@@ -1,9 +1,14 @@
 {
     "inputs": [],
-    "servers": {,
-        "my-mcp-server-870f90c6": {
-                "type": "sse",
-                "url": "http://localhost:5248/sse"
-            }
+    "servers": {
+        "MyFirstMCP": {
+            "type": "stdio",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "D:\\src\\samples\\MCPServer\\Stdio\\MCP.Stdio\\MCP.Stdio.Server.csproj"
+            ]
+        }
     }
 }
