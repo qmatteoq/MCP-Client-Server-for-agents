@@ -1,0 +1,5 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/ubuntu:22.04",
+    "features": {},
+    "postCreateCommand": "uname -a"
+}
