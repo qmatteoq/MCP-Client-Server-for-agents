@@ -27,7 +27,7 @@
 
     private async Task OnSubmit()
     {
-        var serviceUri = configuration["services:mcp-server:http:0"];
+        var serviceUri = configuration["services:MCP-SSE-Server:http:0"];
 
         await using var mcpClient = await McpClientFactory.CreateAsync(
         new SseClientTransport(new()
