@@ -20,7 +20,7 @@ public class EmployeeVacationTool
 
     [McpServerTool, Description("Charge vacation days for a given employee.")]
     public async Task<bool> ChargeVacationDaysAsync([Description("The name of the employee")] string employeeName, [Description("The number of days to charge")] int daysToCharge)
-    {
+    {   
         return await _employeeVacationService.ChargeVacationDaysAsync(employeeName, daysToCharge);
     }
 
