@@ -9,7 +9,6 @@ var builder = Host.CreateEmptyApplicationBuilder(settings: null);
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
-    .WriteTo.File(Path.Combine(Directory.GetCurrentDirectory(), "weather.log"), rollingInterval: RollingInterval.Day)
     .WriteTo.Console(standardErrorFromLevel: Serilog.Events.LogEventLevel.Information)
     .CreateLogger();
 

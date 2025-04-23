@@ -6,7 +6,7 @@
             "args": [
                 "run",
                 "--project",
-                "${workspaceFolder}/MCP.Stdio.Server/MCP.Stdio.Server.csproj"
+                "${workspaceFolder}\\Stdio\\MCP.Stdio\\MCP.Stdio.Server.csproj"
             ]
         }
     }
