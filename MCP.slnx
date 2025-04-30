@@ -1,0 +1,16 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/SSE/">
+    <Project Path="SSE/MCP.SSE.AppHost/MCP.SSE.AppHost.csproj" />
+    <Project Path="SSE/MCP.SSE.Client/MCP.SSE.Client.csproj" />
+    <Project Path="SSE/MCP.SSE.Server/MCP.SSE.Server.csproj" />
+    <Project Path="SSE/MCP.SSE.ServiceDefaults/MCP.SSE.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/Stdio/">
+    <Project Path="Stdio/MCP.Stdio/MCP.Stdio.Server.csproj" />
+  </Folder>
+</Solution>

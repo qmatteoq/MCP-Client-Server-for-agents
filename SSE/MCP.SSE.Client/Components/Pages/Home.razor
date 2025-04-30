@@ -31,10 +31,10 @@
 
         await using var mcpClient = await McpClientFactory.CreateAsync(
         new SseClientTransport(new()
-        {
-            Name = "MyFirstMCP",
-            Endpoint = new Uri($"{serviceUri}/sse"),
-        })
+            {
+                Name = "MyFirstMCP",
+                Endpoint = new Uri($"{serviceUri}"),
+            })
         );
 
         var tools = await mcpClient.ListToolsAsync();
