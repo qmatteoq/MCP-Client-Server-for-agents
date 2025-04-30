@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SSE", "SSE", "{2D311568-E48
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stdio", "Stdio", "{E7B4374F-92E3-4BE7-CE56-07C86AD7F278}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCP.Stdio.Server", "Stdio\MCP.Stdio\MCP.Stdio.Server.csproj", "{D7EDF238-58C9-49F1-8705-E3B88AA89345}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCP.Stdio.Server", "Stdio\MCP.Stdio.Server\MCP.Stdio.Server.csproj", "{D7EDF238-58C9-49F1-8705-E3B88AA89345}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

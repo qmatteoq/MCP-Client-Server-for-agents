@@ -11,6 +11,6 @@
     <Project Path="SSE/MCP.SSE.ServiceDefaults/MCP.SSE.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/Stdio/">
-    <Project Path="Stdio/MCP.Stdio/MCP.Stdio.Server.csproj" />
+    <Project Path="Stdio/MCP.Stdio.Server/MCP.Stdio.Server.csproj" />
   </Folder>
 </Solution>
