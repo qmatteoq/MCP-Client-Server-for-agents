@@ -22,12 +22,21 @@ To run the sample, you need to have the following prerequisites installed:
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [The Azurite extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Azurite.azurite)
 
+## Running the stdio sample
+
+To run the stdio sample, follow these steps:
+
+- Start the Azurite Table service emulator by clicking on the button in the application bar, or by opening the command palette (**Ctrl+Shift+P**) and selecting **Azurite: Start Table Service**.
+- You can connect any client application (Visual Studio Code, AI Toolkit, a custom application) by using the following configuration:
+  - Command: `dotnet`
+  - Arguments: `run --project Stdio/MCP.Stdio.Server/MCP.Stdio.Server.csproj`
+
 ## Running the SSE sample
 
 To run the SSE sample, follow these steps:
 
 - Clone the repository to your local machine.
-- Open the a`ppsettings.json` file in the `MCP.SSE.AppHost` project inside the `SSE` folder and update the `openAiConnectionName` property with your Azure OpenAI connection string using the following format:
+- Open the `appsettings.json` file in the `MCP.SSE.AppHost` project inside the `SSE` folder and update the `openAiConnectionName` property with your Azure OpenAI connection string using the following format:
   
     ```json
     "openAiConnectionName": "Endpoint=https://<your-endpoint>.openai.azure.com/;Key=<your-key>"
