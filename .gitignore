@@ -362,6 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-*.env
 AzuriteConfig
 __azurite_db_table__.*
+SSE/ttk2-agent/.env

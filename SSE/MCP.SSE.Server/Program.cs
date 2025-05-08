@@ -56,7 +56,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// MapAbsoluteEndpointUriMcp(app);
+//MapAbsoluteEndpointUriMcp(app);
 
 app.MapMcp();
 
