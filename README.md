@@ -59,3 +59,26 @@ To run the SSE sample, follow these steps:
     "Give me a list of the employees and their vacation days left"
     "Charge 5 vacation days to Alice Johnson""
     ```
+
+## Running the Teams AI library sample
+    
+The Teams AI library sample is already registered as part of the Aspire solution. However, before using it, you must follow these steps:
+
+- Open the **ttk2-agent** project in the **SSE** folder
+- Rename the .`env.example` file to `.env`
+- Open the file and update the variables with the correct values for your Azure OpenAI service:
+  - `AZURE_OPENAI_API_KEY` with the key of your Azure OpenAI service
+  - `AZURE_OPENAI_ENDPOINT` with the endpoint of your Azure OpenAI service
+  - `AZURE_OPENAI_API_VERSION` with the API version (pay attention, this is a different value than the model version, you can find it in the Azure OpenAI portal)
+  - `AZURE_OPENAI_MODEL_DEPLOYMENT_NAME` with the name of your model deployment in Azure OpenAI
+  
+Once the Aspire dashboard is up & running, you will see that the **ttk2-agent **project has two endpoints:
+
+![The Aspire dashboard](./docs/img/dashboard.png)
+
+You can access to the testing tool for the agent by using the endpoint with the higher port number and adding the `/devtools` path to it.
+For example, in the previous image, the URL would be:
+
+```plaintext
+http://localhost:54251/devtools/
+```
