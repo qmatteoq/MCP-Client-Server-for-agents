@@ -364,4 +364,4 @@ FodyWeavers.xsd
 
 AzuriteConfig
 __azurite_db_table__.*
-SSE/ttk2-agent/.env
+*.env

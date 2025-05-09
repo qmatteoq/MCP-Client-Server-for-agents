@@ -1,13 +1,18 @@
 {
     "servers": {
-        "MyFirstMCP": {
+        "CSharpMCP": {
             "type": "stdio",
             "command": "dotnet",
             "args": [
                 "run",
                 "--project",
-                "${workspaceFolder}\\Stdio\\MCP.Stdio.Server\\MCP.Stdio.Server.csproj"
+                "${workspaceFolder}/src/csharp/Stdio/MCP.Stdio.Server/MCP.Stdio.Server.csproj"
             ]
+        },
+        "my-mcp-server-npm": {
+            "type": "stdio",
+            "command": "node",
+            "args": ["${workspaceFolder}/src/ts/stdio/server/dist/app.js"],
         }
     }
 }

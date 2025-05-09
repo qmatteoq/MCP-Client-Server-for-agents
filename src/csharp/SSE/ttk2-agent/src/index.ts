@@ -21,7 +21,7 @@ app.on('message', async ({ send, activity }) => {
   const mcpServerUrl = process.env['services__MCP-SSE-Server__http__0'] || 'http://localhost:5248';
 
   const prompt = new ChatPrompt({
-    instructions: "You are a friendly assistant who talks like a pirate",
+    instructions: "You are a friendly assistant who can help employees with their questions about vacation days",
     model,
   },
     [new McpClientPlugin()])
