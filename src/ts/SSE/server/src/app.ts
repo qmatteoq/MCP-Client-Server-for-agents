@@ -2,12 +2,15 @@ import express, { Request, Response } from 'express';
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from 'zod';
-import { CallToolResult, GetPromptResult, ReadResourceResult } from "@modelcontextprotocol/sdk/types.js"
 import EmployeeVacationService from './services/employeeVacationService.js';
 
-const employeeVacationService = new EmployeeVacationService("UseDevelopmentStorage=true", "VacationsTable");
+require('dotenv').config();
 
+const connectionString = process.env.TABLE_CONNECTION_STRING || '"UseDevelopmentStorage=true"';
+const tableName = process.env.TABLE_NAME || 'EmployeeVacationTable';
 
+// Instantiate EmployeeVacationService
+const employeeVacationService = new EmployeeVacationService(connectionString, tableName);
 
 const getServer = (): McpServer => {
     // Create an MCP server with implementation details

@@ -8,7 +8,11 @@ const mcp_js_1 = require("@modelcontextprotocol/sdk/server/mcp.js");
 const streamableHttp_js_1 = require("@modelcontextprotocol/sdk/server/streamableHttp.js");
 const zod_1 = require("zod");
 const employeeVacationService_js_1 = __importDefault(require("./services/employeeVacationService.js"));
-const employeeVacationService = new employeeVacationService_js_1.default("UseDevelopmentStorage=true", "VacationsTable");
+require('dotenv').config();
+const connectionString = process.env.TABLE_CONNECTION_STRING || '"UseDevelopmentStorage=true"';
+const tableName = process.env.TABLE_NAME || 'EmployeeVacationTable';
+// Instantiate EmployeeVacationService
+const employeeVacationService = new employeeVacationService_js_1.default(connectionString, tableName);
 const getServer = () => {
     // Create an MCP server with implementation details
     const server = new mcp_js_1.McpServer({

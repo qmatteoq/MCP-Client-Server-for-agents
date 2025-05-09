@@ -1,6 +1,6 @@
 {
     "servers": {
-        "CSharpMCP": {
+        "chsarp-mcp-stdio": {
             "type": "stdio",
             "command": "dotnet",
             "args": [
@@ -9,8 +9,14 @@
                 "${workspaceFolder}/src/csharp/Stdio/MCP.Stdio.Server/MCP.Stdio.Server.csproj"
             ]
         },
-
-        "my-mcp-server-npm-http": {
+        "node-MCP-stdio": {
+            "type": "stdio",
+            "command": "node",
+            "args": [
+                "${workspaceFolder}/src/ts/stdio/server/dist/app.js"
+            ]
+        },
+        "node-MCP-http": {
             "url": "http://localhost:3000/mcp"
         }
     }

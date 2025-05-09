@@ -7,13 +7,16 @@ const mcp_js_1 = require("@modelcontextprotocol/sdk/server/mcp.js");
 const stdio_js_1 = require("@modelcontextprotocol/sdk/server/stdio.js");
 const zod_1 = require("zod");
 const employeeVacationService_1 = __importDefault(require("./services/employeeVacationService"));
+require('dotenv').config();
 // Create an MCP server
 const server = new mcp_js_1.McpServer({
     name: "Vacation Days Employees MCP",
     version: "1.0.0"
 });
+const connectionString = process.env.TABLE_CONNECTION_STRING || '"UseDevelopmentStorage=true"';
+const tableName = process.env.TABLE_NAME || 'EmployeeVacationTable';
 // Instantiate EmployeeVacationService
-const employeeVacationService = new employeeVacationService_1.default("UseDevelopmentStorage=true", "VacationsTable");
+const employeeVacationService = new employeeVacationService_1.default(connectionString, tableName);
 // Ensure the table is created and check if the table is empty, seed it with data if necessary
 (async () => {
     await employeeVacationService.createTableIfNotExists();
