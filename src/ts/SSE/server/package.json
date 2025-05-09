@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@azure/data-tables": "^13.3.0",
+    "@modelcontextprotocol/sdk": "^1.11.0",
+    "express": "^5.1.0"
+  }
+}

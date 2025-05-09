@@ -9,10 +9,9 @@
                 "${workspaceFolder}/src/csharp/Stdio/MCP.Stdio.Server/MCP.Stdio.Server.csproj"
             ]
         },
-        "my-mcp-server-npm": {
-            "type": "stdio",
-            "command": "node",
-            "args": ["${workspaceFolder}/src/ts/stdio/server/dist/app.js"],
+
+        "my-mcp-server-npm-http": {
+            "url": "http://localhost:3000/mcp"
         }
     }
 }
