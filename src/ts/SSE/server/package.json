@@ -14,11 +14,13 @@
   "description": "",
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.1",
     "typescript": "^5.8.3"
   },
   "dependencies": {
     "@azure/data-tables": "^13.3.0",
     "@modelcontextprotocol/sdk": "^1.11.0",
-    "dotenv": "^16.5.0"
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
   }
 }

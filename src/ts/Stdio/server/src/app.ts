@@ -3,14 +3,19 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import EmployeeVacationService from "./services/employeeVacationService";
 
+require('dotenv').config();
+
 // Create an MCP server
 const server = new McpServer({
   name: "Vacation Days Employees MCP",
   version: "1.0.0"
 });
 
+const connectionString = process.env.TABLE_CONNECTION_STRING || '"UseDevelopmentStorage=true"';
+const tableName = process.env.TABLE_NAME || 'EmployeeVacationTable';
+
 // Instantiate EmployeeVacationService
-const employeeVacationService = new EmployeeVacationService("UseDevelopmentStorage=true", "VacationsTable");
+const employeeVacationService = new EmployeeVacationService(connectionString, tableName);
 
 // Ensure the table is created and check if the table is empty, seed it with data if necessary
 (async () => {
