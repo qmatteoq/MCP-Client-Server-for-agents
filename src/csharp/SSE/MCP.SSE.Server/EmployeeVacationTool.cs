@@ -4,7 +4,7 @@ using MCP.SSE.Server.Services;
 using ModelContextProtocol.Server;
 
 [McpServerToolType]
-public class EmployeeVacationTool
+public sealed class EmployeeVacationTool
 {
     private readonly IEmployeeVacationService _employeeVacationService;
     public EmployeeVacationTool(IEmployeeVacationService employeeVacationService)
